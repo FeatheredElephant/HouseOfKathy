@@ -1,12 +1,13 @@
 {
-  "name": "",
+  "name": "houseofkathy.com",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "vitest test"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.0",
@@ -15,6 +16,10 @@
     "reading-time": "^1.5.0",
     "rehype-external-links": "^3.0.0",
     "remark-gfm": "^4.0.0",
-    "remark-smartypants": "^2.0.0"
+    "remark-smartypants": "^2.0.0",
+    "svelte-range-slider-pips": "^4.1.0"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.8"
   }
 }

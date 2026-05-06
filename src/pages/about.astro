@@ -1,48 +1,120 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-const title = 'About';
-const description = 'About your blog.';
+const title = "About";
+const description = "About your blog.";
 const permalink = `${Astro.site.href}about`;
 ---
 
-<BaseLayout title={title} description={description} permalink={permalink} current="about">
+<BaseLayout
+  title={title}
+  description={description}
+  permalink={permalink}
+  current="about"
+>
   <div class="container">
-    <h1>About</h1>
+    <h1>Kathy Shumway</h1>
+
     <figure class="about-image">
-      <img src="/assets/about-illustration.webp" alt="Illustration of a notebook" width="330">
-      <figcaption>
-        Illustration by
-        <a href="https://icons8.com/illustrations/author/5c07e68d82bcbc0092519bb6" target="_blank" rel="noopener">Icons 8</a>
-        from
-        <a href="https://icons8.com/illustrations" target="_blank" rel="noopener">Ouch!</a>
-      </figcaption>
+      <img
+        src="/assets/Kathy_Profile_Picture.jpg"
+        alt="Photo of Kathy Shumway"
+      />
+      <figcaption>Top-Rated Ulster County Real Estate Expert</figcaption>
     </figure>
-    <p>Text placeholder via <a href="https://jeffsum.com/" target="_blank">Jeffsum</a>.</p>
-    <p>So you two dig up, dig up dinosaurs? What do they got in there? King Kong? My dad once told me, laugh and the world laughs with you, Cry, and I'll give you something to cry about you little bastard! Life finds a way. God creates dinosaurs. God destroys dinosaurs. God creates Man. Man destroys God. Man creates Dinosaurs.</p>
-    <p>You really think you can fly that thing? You know what? It is beets. I've crashed into a beet truck. Forget the fat lady! You're obsessed with the fat lady! Drive us out of here! Is this my espresso machine? Wh-what is-h-how did you get my espresso machine?</p>
-    <p>Hey, you know how I'm, like, always trying to save the planet? Here's my chance. Hey, take a look at the earthlings. Goodbye! I was part of something special. Just my luck, no ice. You're a very talented young man, with your own clever thoughts and ideas. Do you need a manager?</p>
-    <p>Jaguar shark! So tell me - does it really exist? This thing comes fully loaded. AM/FM radio, reclining bucket seats, and... power windows. Yes, Yes, without the oops! You're a very talented young man, with your own clever thoughts and ideas. Do you need a manager?</p>
-    <p>Yes, Yes, without the oops! Do you have any idea how long it takes those cups to decompose. They're using our own satellites against us. And the clock is ticking. Do you have any idea how long it takes those cups to decompose. My dad once told me, laugh and the world laughs with you, Cry, and I'll give you something to cry about you little bastard!</p>
+
+    <p>
+      Kathy is a top-producing real estate agent in Ulster County, proudly
+      serving buyers and sellers throughout the Hudson Valley for over 20 years.
+      With more than 100 successful sales and a consistent 5-star rating on
+      Zillow, she’s known for her local expertise, integrity, and strong
+      negotiation skills that deliver results.
+    </p>
+
+    <p>
+      She first arrived in Woodstock, New York, in the summer of 1994, chasing
+      adventure in her early twenties. The area’s creative energy and natural
+      beauty immediately drew her in. After a period of traveling between
+      Toronto and the Catskills, she decided to settle in Willow, where she
+      raised her two children and built a life surrounded by community and
+      nature.
+    </p>
+
+    <p>
+      When Kathy sold her first home—with the help of a local agent friend—it
+      quickly went to the founders of the Woodstock Animal Sanctuary. The
+      experience inspired her to pursue a career in real estate, combining her
+      love for homes, people, and the Hudson Valley lifestyle.
+    </p>
+
+    <p>
+      Today, she continues her work with Win Morrison Realty, bringing energy,
+      insight, and dedication to every transaction. Whether guiding first-time
+      buyers, seasoned investors, or long-time residents, Kathy takes pride in
+      being a steady advocate and an experienced negotiator.
+    </p>
+
+    <p>
+      The Hudson Valley offers something for everyone—from grand estates to cozy
+      seasonal cottages. Its breathtaking landscapes, artistic spirit, and
+      vibrant four seasons make it one of New York’s most desirable places to
+      live. Winter weekends invite skiing at Windham, Hunter, or Belleayre;
+      summer brings endless hiking, festivals, and outdoor adventures; and
+      autumn paints the mountains in unforgettable color.
+    </p>
+
+    <p>
+      Local life is rich with character—farmers markets, wineries, and small
+      businesses give Ulster County its unique charm. It’s this combination of
+      nature, creativity, and community that makes living here so rewarding—and
+      why Kathy is passionate about helping others experience it for themselves.
+    </p>
+
+    <p>
+      As a certified EcoBroker, Kathy also specializes in sustainable and
+      environmentally conscious homes. She even built her own eco-friendly
+      residence using organic paints, stains, and bamboo flooring. Whether
+      you’re buying your dream home or selling your property, Kathy is ready to
+      guide you every step of the way.
+    </p>
   </div>
-</BaseLayout>
 
-<style>
-  .about-image {
-    float: right;
-    margin: -3em -7em 2em 2em;
-    max-width: 300px;
-  }
-
-  .about-image img {
-    border-radius: 8px;
-    margin-bottom: 1.5em;
-  }
-
-  @media (max-width: 1020px) {
+  <style>
     .about-image {
-      float: none;
-      margin: 0 auto 2em;
+      float: right;
+      margin: 0 0 2em 2em;
+      max-width: 320px;
+      min-width:;
+      text-align: center;
     }
-  }
-</style>
+
+    .about-image img {
+      border-radius: 50%;
+      background: transparent; /* Removes gradient rings issue */
+      padding: 8px;
+
+      /* Soft, theme-friendly halo */
+      box-shadow:
+        0 0 18px rgba(255, 255, 255, 0.08),
+        /* faint outer glow for light mode */ 0 0 35px rgba(84, 142, 155, 0.15); /* soft color accent */
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.3)); /* realistic depth */
+    }
+
+    .about-image figcaption {
+      margin-top: 0.6em;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    @media (max-width: 1020px) {
+      .about-image {
+        float: none;
+        margin: 1.5em auto 2em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</BaseLayout>

@@ -1,0 +1,277 @@
+<script lang="ts">
+  import RangeSlider from "svelte-range-slider-pips";
+  export let properties: any = [];
+
+  // --- Normalization ---
+  function normalize(item: any) {
+    const data = item?.data ?? item ?? {};
+    return {
+      raw: data,
+      title: `${data["Street Number"] ?? ""} ${data["Street Name"] ?? ""}, ${data.City ?? ""}`.trim() || "Untitled",
+      slug: data.slug ?? item?.slug ?? item?.id,
+      coverSrc: data.coverSrc ?? (data.cover ? `./assets/properties/${data.slug}/images/${data.cover}` : undefined),
+      price: typeof data["List Price"] === "number" ? data["List Price"] : undefined,
+      bedrooms: typeof data["Bedrooms Total"] === "number" ? data["Bedrooms Total"] : undefined,
+      type: data["Card Format"],
+      city: data.City
+    };
+  }
+
+  // Normalize incoming properties
+  $: normalizedProps = Array.isArray(properties)
+    ? properties.map(normalize)
+    : properties && typeof properties === "object"
+    ? [normalize(properties)]
+    : [];
+
+  // Extract unique filter values
+  $: uniqueCities = Array.from(new Set(normalizedProps.map(p => p.city).filter(Boolean))).sort();
+  $: uniqueTypes = Array.from(new Set(normalizedProps.map(p => p.type).filter(Boolean))).sort();
+
+  // Price bounds
+  $: prices = normalizedProps.map(p => p.price).filter(p => typeof p === "number");
+  $: minPrice = prices.length ? Math.min(...prices) : 0;
+  $: maxPrice = prices.length ? Math.max(...prices) : 0;
+
+  let priceRange: number[] = [minPrice, maxPrice];
+  // Initialize full price range on page load
+  $: if (normalizedProps.length && prices.length){
+    priceRange = [minPrice, maxPrice];
+  }
+
+  // Other filters
+  let selectedCity = "";
+  let selectedType = "";
+  let minBedrooms = 0;
+  let sortAscending = true; // true = ascending price
+
+  // Filtering logic
+  $: filtered = normalizedProps
+    .filter(p => {
+      if (selectedType && p.type !== selectedType) return false;
+      if (selectedCity && p.city !== selectedCity) return false;
+      if (minBedrooms > 0 && (typeof p.bedrooms !== "number" || p.bedrooms < minBedrooms)) return false;
+      if (typeof p.price === "number") {
+        if (p.price < priceRange[0] || p.price > priceRange[1]) return false;
+      }
+      return true;
+    })
+    .sort((a, b) => sortAscending ? (a.price ?? 0) - (b.price ?? 0) : (b.price ?? 0) - (a.price ?? 0));
+</script>
+
+<!-- ======================= -->
+<!--      FILTER PANEL       -->
+<!-- ======================= -->
+<div class="filter-box">
+  <div class="filter-grid">
+    <!-- Row 1 -->
+    <div class="filter-block price-block">
+      <label>Price</label>
+      <RangeSlider
+        bind:values={priceRange}
+        min={minPrice}
+        max={maxPrice}
+        range
+        rangeFloat
+        rangeFormatter={(v1, v2) => `$${v1.toLocaleString()} — $${v2.toLocaleString()}`}
+        formatter={(v) => `$${v.toLocaleString()}`}
+      />
+    </div>
+
+    <div class="filter-block">
+      <label>City</label>
+      <select bind:value={selectedCity}>
+        <option value="">Any</option>
+        {#each uniqueCities as city}
+          <option value={city}>{city}</option>
+        {/each}
+      </select>
+    </div>
+
+    <div class="filter-block bedroom-block">
+      <label>Bedrooms</label>
+      <div class="bedroom-buttons">
+        {#each [0,1,2,3,4,5,6] as num}
+          <button
+            type="button"
+            class:active={minBedrooms === num}
+            on:click={() => minBedrooms = num}
+          >
+            {num === 0 ? "Any" : `${num}+`}
+          </button>
+        {/each}
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="filter-block empty-block"></div>
+    <div class="filter-block">
+      <label>Property Type</label>
+      <select bind:value={selectedType}>
+        <option value="">Any</option>
+        {#each uniqueTypes as type}
+          <option value={type}>{type}</option>
+        {/each}
+      </select>
+    </div>
+
+    <div class="filter-block sort-block">
+      <button type="button" on:click={() => sortAscending = !sortAscending}>
+        {sortAscending ? "Price ↑" : "Price ↓"}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= -->
+<!--       PROPERTY GRID     -->
+<!-- ======================= -->
+<div class="grid">
+  {#each filtered as prop (prop.slug ?? prop.title)}
+    <a class="card" href={prop.slug ? `/properties/${prop.slug}` : "#"}>
+      {#if prop.coverSrc}
+        <img src={prop.coverSrc} alt={prop.title} loading="lazy" />
+      {:else}
+        <div class="no-image">No image</div>
+      {/if}
+      <div class="info">
+        <h3>{prop.title}</h3>
+        {#if prop.price !== undefined}
+          <p class="price">${prop.price.toLocaleString()}</p>
+        {/if}
+        <p class="details">
+          {#if prop.bedrooms !== undefined}{prop.bedrooms} bd{/if}
+          {#if prop.type} {prop.type}{/if}
+        </p>
+      </div>
+    </a>
+  {/each}
+</div>
+
+<style>
+.filter-box {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0.5rem;
+}
+
+.filter-block label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+select {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.bedroom-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.bedroom-buttons button {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.bedroom-buttons button.active {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.sort-block {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end; /* aligns to bottom */
+}
+
+.sort-block button {
+  align-items: flex-end; /* aligns to bottom */
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.no-image {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  color: #9ca3af;
+}
+
+.info {
+  padding: 0.75rem 1rem;
+}
+
+.info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.details {
+  font-size: 0.85rem;
+  color: #374151;
+  margin-top: 0.25rem;
+}
+</style>

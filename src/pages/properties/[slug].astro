@@ -1,0 +1,117 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Gallery from "../../components/Gallery.astro";
+
+export async function getStaticPaths() {
+  const properties = await getCollection("properties");
+  return properties.map((p) => ({
+    params: { slug: p.data.slug },
+    props: { property: p },
+  }));
+}
+
+const { property } = Astro.props;
+
+const {
+  "Street Number": streetNumber,
+  "Street Name": streetName,
+  City,
+  slug,
+  "List Number": listNumber,
+  "List Price": price,
+  description,
+} = property.data;
+
+const title = `${streetNumber ?? ""} ${streetName ?? ""}, ${City ?? ""}`.trim();
+const permalink = `${Astro.site.href}properties/${slug}`;
+
+const { Content } = await render(property);
+
+/**
+ * Generate image URLs dynamically from the public folder
+ * We assume all images are .jpg; you can expand to other extensions if needed
+ */
+const images: string[] = [];
+for (let i = 1; i <= 10; i++) {
+  // Adjust max number if necessary
+  images.push(`/assets/properties/${slug}/images/${listNumber}_${i}.jpg`);
+}
+
+// Optional: filter out images that don’t actually exist (optional, requires fetch check at runtime)
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  permalink={permalink}
+  current="properties"
+>
+  <header>
+    <h1>{title}</h1>
+    <hr />
+    {price !== undefined && <p class="price">${price.toLocaleString()}</p>}
+  </header>
+
+  <div class="container">
+    <article class="content">
+      <Content />
+    </article>
+
+    {
+      images.length > 0 ?
+        <Gallery images={images} client:load />
+      : <p>No images found for this property.</p>
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  header h1 {
+    margin-bottom: 0.5em;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  header p.price {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2563eb;
+    margin-top: 0;
+  }
+
+  header hr {
+    min-width: 100px;
+    width: 30%;
+    margin: 0.5rem auto 1rem auto;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  h2 {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  pre {
+    background: #f5f5f5;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    overflow-x: auto;
+  }
+</style>

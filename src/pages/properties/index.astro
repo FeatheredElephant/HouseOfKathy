@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import PropertyGrid from "../../components/PropertyGrid.svelte";
+
+const title = "Properties";
+const description = "Latest articles.";
+const permalink = `${Astro.site.href}properties`;
+
+//Gets a list of all property.yaml files, and then sorts them by date.
+let allProperties = await getCollection("properties");
+allProperties = allProperties.sort(
+  (a, b) =>
+    new Date(b.data.publishDate).valueOf() -
+    new Date(a.data.publishDate).valueOf()
+);
+
+const formatDate = (date: Date) => {
+  const d = new Date(date);
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(d);
+};
+
+const formatPrice = (price: number) => {
+  if (!price) return "";
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(price);
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  permalink={permalink}
+  current="properties"
+>
+  <div class="container">
+    <h1>{title}</h1>
+    <PropertyGrid client:load properties={allProperties} />
+  </div>
+</BaseLayout>
+
+<style>
+  h2,
+  .property-item-footer {
+    font-family: var(--font-family-sans);
+    font-weight: 700;
+  }
+
+  .property-item-date {
+    color: var(--text-secondary);
+    text-align: left;
+    text-transform: uppercase;
+    margin-right: 16px;
+  }
+
+  hr {
+    margin: 60px auto;
+  }
+</style>

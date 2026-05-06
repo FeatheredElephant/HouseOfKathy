@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Fair Housing";
+const description = "HOUSE OF KATHY IS COMMITTED TO FAIR HOUSING.";
+const permalink = `${Astro.site.href}fairHousing`;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  permalink={permalink}
+  current="fairHousing"
+>
+  <div class="fair-housing-wrapper">
+    <a
+      href="/assets/legal/nys-housing-and-anti-discrimination-notice_02.2025.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="pdf-preview-link"
+    >
+      <img
+        src="/assets/legal/nys-housing-and-anti-discrimination-notice_02.2025.jpg"
+        alt="New York State Housing and Anti-Discrimination Notice. Click for PDF."
+        class="pdf-preview"
+      />
+      <span class="pdf-caption">View Fair Housing Notice (Printable PDF)</span>
+    </a>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Center the preview area and make it full-width */
+  .fair-housing-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 2em 1em;
+    box-sizing: border-box;
+  }
+
+  /* Core preview styles */
+  .pdf-preview-link {
+    display: block;
+    width: 80%;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+    background: #fff;
+  }
+
+  .pdf-preview-link:hover {
+    transform: scale(1.01);
+  }
+
+  /* Image styling */
+  .pdf-preview {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Caption below image */
+  .pdf-caption {
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    color: #004080;
+    padding: 0.75em 0;
+  }
+
+  /* 🖥️ Large desktops: reduce width slightly */
+  @media (min-width: 1600px) {
+    .pdf-preview-link {
+      width: 70%;
+    }
+  }
+
+  /* 📱 Tablets & phones: use nearly full width */
+  @media (max-width: 1024px) {
+    .pdf-preview-link {
+      width: 90%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pdf-preview-link {
+      width: 100%;
+      box-shadow: none;
+      border-radius: 0;
+    }
+
+    .pdf-caption {
+      font-size: 0.95rem;
+    }
+  }
+</style>

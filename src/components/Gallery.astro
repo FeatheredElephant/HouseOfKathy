@@ -1,0 +1,164 @@
+---
+const { images } = Astro.props;
+---
+{images && images.length > 0 ? (
+  <>
+    <div class="gallery-scroll">
+      {images.map((src, i) => (
+        <div class="gallery-item" data-index={i} data-src={src}>
+          <img src={src} alt={`Property image ${i + 1}`} loading="lazy" />
+        </div>
+      ))}
+    </div>
+    
+
+    <div class="overlay hidden" id="overlay">
+      <button class="nav prev" id="prevBtn">&#10094;</button>
+      <img class="overlay-img" id="overlayImg" src="" alt="Selected image" />
+      <button class="nav next" id="nextBtn">&#10095;</button>
+    </div>
+
+    <script type="module">
+      const images = [...document.querySelectorAll('.gallery-item')].map(
+        item => item.dataset.src
+      );
+
+      let currentIndex = 0;
+
+      const overlay = document.getElementById('overlay');
+      const overlayImg = document.getElementById('overlayImg');
+
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', () => {
+          currentIndex = parseInt(item.dataset.index);
+          overlayImg.src = images[currentIndex];
+          overlay.classList.remove('hidden');
+        });
+      });
+
+      const showImage = (index) => {
+        currentIndex = (index + images.length) % images.length;
+        overlayImg.src = images[currentIndex];
+      };
+
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showImage(currentIndex - 1);
+      });
+
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showImage(currentIndex + 1);
+      });
+
+      overlay.addEventListener('click', () => {
+        overlay.classList.add('hidden');
+        overlayImg.src = '';
+      });
+    </script>
+  </>
+  
+) : (
+  <p>No images found for this property.</p>
+)}
+
+<style>
+/* --- 1. Sleek, elegant horizontal scroll --- */
+.gallery-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem 0;
+  scroll-behavior: smooth;
+  border: 10px;
+  border-color: #000;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.gallery-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.gallery-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+}
+.gallery-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* --- 3. Keep aspect ratio thumbnails --- */
+.gallery-item {
+  aspect-ratio: 16 / 9;
+  flex: 0 0 auto;
+  width: auto;
+  border-radius: 12px;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery-item img {
+  width: auto;
+  height: 225px;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+}
+
+/* --- 2. Overlay with navigation arrows --- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+/* Navigation arrows */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1rem;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  user-select: none;
+}
+
+.nav:hover {
+  opacity: 1;
+}
+
+.prev {
+  left: 2%;
+}
+
+.next {
+  right: 2%;
+}
+</style>

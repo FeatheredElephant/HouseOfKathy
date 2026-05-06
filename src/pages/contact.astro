@@ -1,0 +1,162 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Contact";
+const description =
+  "Contact Information for Kathy Shumway, Ulster County Real Estate Agent";
+const permalink = `${Astro.site.href}contact`;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  permalink={permalink}
+  current="contact"
+>
+  <div class="contact-page">
+    <header class="contact-header">
+      <h1>Contact Kathy Shumway</h1>
+      <p>
+        Helping you navigate real estate in Ulster County and the Hudson Valley
+        with expertise and care.
+      </p>
+    </header>
+
+    <section class="contact-info">
+      <div class="info-item">
+        <svg class="icon" viewBox="0 0 24 24"
+          ><path
+            fill="currentColor"
+            d="M6.62 10.79a15.09 15.09 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21 11.36 11.36 0 003.54.57 1 1 0 011 1v3.5a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.54 1 1 0 01-.21 1.11l-2.2 2.2z"
+          ></path></svg
+        >
+        <a href="tel:8459016555">845-901-6555</a>
+      </div>
+
+      <div class="info-item">
+        <svg class="icon" viewBox="0 0 24 24"
+          ><path
+            fill="currentColor"
+            d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 2l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"
+          ></path></svg
+        >
+        <a target="_blank" href="mailto:kathy_shumway@yahoo.com"
+          >kathy_shumway@yahoo.com</a
+        >
+      </div>
+
+      <div class="info-item">
+        <svg class="icon" viewBox="0 0 24 24"
+          ><path
+            fill="currentColor"
+            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"
+          ></path></svg
+        >
+        <a><p>56 John St, Kingston, NY</p></a>
+      </div>
+    </section>
+
+    <section class="contact-note">
+      <p>
+        Kathy is ready to guide you through buying, selling, or investing in
+        real estate across the Hudson Valley. Contact her today to start your
+        journey.
+      </p>
+    </section>
+  </div>
+
+  <style>
+    .contact-page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 5em 1em;
+      font-family: var(--font-family-serif);
+      color: var(--text-main);
+    }
+
+    .contact-header h1 {
+      font-family: var(--font-family-sans);
+      font-weight: 700;
+      font-size: 3.5em;
+      color: var(--primary-color);
+      margin-bottom: 0.5em;
+      border-bottom: 2px solid var(--primary-color);
+      display: inline-block;
+      padding-bottom: 0.2em;
+    }
+
+    .contact-header p {
+      font-size: 1.2rem;
+      margin-top: 0.5em;
+      max-width: 700px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5em;
+      margin-top: 3em;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      background: var(--background-body);
+      padding: 1em 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
+    }
+
+    .info-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+    }
+
+    .info-item .icon {
+      width: 2em;
+      height: 2em;
+      margin-right: 1em;
+      color: var(--primary-color);
+      flex-shrink: 0;
+    }
+
+    .info-item p {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .info-item a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .info-item a:hover {
+      color: var(--primary-color);
+    }
+
+    .contact-note {
+      margin-top: 3em;
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+
+    @media (min-width: 768px) {
+      .contact-info {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .info-item {
+        flex: 1 1 30%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-page {
+        padding: 3em 1em;
+      }
+    }
+  </style>
+</BaseLayout>
