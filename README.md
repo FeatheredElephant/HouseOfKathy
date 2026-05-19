@@ -2,19 +2,12 @@
 
 A modern web project built with Astro, Svelte, and TypeScript.
 
+! [Screenshot of houseofkathy.com] (Screenshot.png)
+
 ### Tech Stack
 Astro
 Svelte
 TypeScript
-
-### Getting Started
-```git clone https://github.com/your-username/houseofkathy.git
-cd houseofkathy
-npm install
-npm run dev
-Build
-npm run build
-```
 
 ### Deployment
 Planned deployment using Cloudflare for fast, global delivery.
