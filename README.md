@@ -2,7 +2,7 @@
 
 A modern web project built with Astro, Svelte, and TypeScript.
 
-[Screenshot of houseofkathy.com](Screenshot.png)
+![Screenshot of houseofkathy.com](Screenshot.png)
 
 ### Tech Stack
 Astro
