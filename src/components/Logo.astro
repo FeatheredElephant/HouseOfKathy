@@ -1,16 +1,26 @@
 <style>
-  img {
-    display: block;
-    width: 75px;
+  #logo {
+    height: 150px;
+    width: auto;
+    object-fit: contain;
+    background-color: #fff;
+    border-radius: 5%;
   }
 
-  @media screen and (max-width: 520px) {
-    img {
-      display: none;
+  @media (max-width: 786px) {
+    #logo-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      height: 150px;
+      width: auto;
+      border-radius: 5%;
+      z-index: 500;
     }
   }
 </style>
 
-<a href="/">
-  <img alt="Blog Logo" src="/assets/logo.webp" width="75" height="50" />
+<a href="/" id="logo-link">
+  <img id="logo" alt="House of Kathy" src="/assets/Kathy_Logo.png" />
 </a>

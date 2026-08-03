@@ -4,7 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const title = "Contact";
 const description =
   "Contact Information for Kathy Shumway, Ulster County Real Estate Agent";
-const permalink = `${Astro.site.href}contact`;
+const permalink = `${Astro.site?.href}contact`;
 ---
 
 <BaseLayout
@@ -52,7 +52,9 @@ const permalink = `${Astro.site.href}contact`;
             d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"
           ></path></svg
         >
-        <a><p>56 John St, Kingston, NY</p></a>
+        <a href="https://maps.app.goo.gl/ZYxqAPwCwdKjkeoq6" target="_blank"
+          ><p>56 John St, Kingston, NY</p></a
+        >
       </div>
     </section>
 
@@ -78,9 +80,9 @@ const permalink = `${Astro.site.href}contact`;
       font-family: var(--font-family-sans);
       font-weight: 700;
       font-size: 3.5em;
-      color: var(--primary-color);
+      color: var(--text-main);
       margin-bottom: 0.5em;
-      border-bottom: 2px solid var(--primary-color);
+      border-bottom: 2px solid var(--text-secondary);
       display: inline-block;
       padding-bottom: 0.2em;
     }

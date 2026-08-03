@@ -1,9 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const title = "My Astro Blog";
-const description = "The perfect starter for your perfect blog.";
-const permalink = Astro.site.href;
+const title = "House of Kathy";
+const description = "Find your dream home with Kathy's expert guidance.";
+const permalink = Astro.site?.href;
+
+if (!permalink) {
+  throw new Error("Site URL is not configured for this page.");
+}
 ---
 
 <BaseLayout title={title} description={description} permalink={permalink}>
@@ -15,12 +19,12 @@ const permalink = Astro.site.href;
         right home and makes every move unforgettable.
       </p>
       <a
-        href="./"
+        href="./properties"
         target="_blank"
         rel="noopener noreferrer"
         class="click-button"
       >
-        Click Here
+        View our Properties
       </a>
     </div>
 
@@ -93,7 +97,7 @@ const permalink = Astro.site.href;
     display: inline-block;
     padding: 0.75em 1.5em;
     margin: 1em 0;
-    background-color: #548e9b; /* matches your primary color */
+    background-color: var(--primary-color); /* matches your primary color */
     color: #fff;
     text-decoration: none;
     border-radius: 6px;

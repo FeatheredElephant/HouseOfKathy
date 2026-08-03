@@ -1,27 +1,55 @@
 ---
-import Logo from './Logo.astro'
-import Nav from './Nav.astro'
+import Logo from "./Logo.astro";
+import Nav from "./NavBar.astro";
+import Hamburger from "./Hamburger.astro";
 
-const { current = '' } = Astro.props;
+const { current = "" } = Astro.props;
 ---
 
 <style>
   header {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 0 auto;
     max-width: 1400px;
     padding: 2em;
     width: 100%;
+    max-height: 200px;
   }
 
-  @media screen and (max-width: 520px) {
-    header {
-      padding: 2em 0;
+  #hamburger-container {
+    display: none;
+    align-items: center;
+    position: fixed;
+    top: 2em;
+    right: 2em;
+    z-index: 50;
+  }
+
+  #nav-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  @media (max-width: 786px) {
+    #nav-container {
+      display: none;
+    }
+
+    #hamburger-container {
+      display: flex;
     }
   }
 </style>
 
 <header>
   <Logo />
-  <Nav current={current} />
+  <div id="nav-container">
+    <Nav current={current} />
+  </div>
+  <div id="hamburger-container">
+    <Hamburger />
+  </div>
 </header>

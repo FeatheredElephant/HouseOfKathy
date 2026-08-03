@@ -1,0 +1,80 @@
+---
+import { NavLink } from "../data/nav.js";
+import { NAV_LINKS } from "../data/nav.js";
+
+interface Props {
+  current?: string | null;
+}
+const { current = null } = Astro.props;
+---
+
+<nav>
+  {
+    NAV_LINKS.map((link: NavLink) => (
+      <a
+        href={link.href}
+        class={current != null && current === link.key ? "selected" : ""}
+      >
+        {link.label}
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+    inset: 0; /* top:0 right:0 bottom:0 left:0 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background: var(--primary-color);
+    z-index: 20;
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: clamp(1.25rem, 4vw, 2.5rem);
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    transition:
+      transform 160ms ease,
+      background-color 160ms ease,
+      box-shadow 160ms ease;
+    will-change: transform, background-color;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  nav a:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  }
+
+  nav a:active {
+    transform: translateY(0) scale(0.995);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  nav a.selected {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.6);
+  }
+
+  @media (min-width: 900px) {
+    nav {
+      align-items: flex-start;
+      padding-left: 4rem;
+    }
+    nav a {
+      font-size: clamp(1rem, 1.8vw, 1.5rem);
+      padding: 0.5rem 1rem;
+    }
+  }
+</style>

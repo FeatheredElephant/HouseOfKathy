@@ -5,11 +5,12 @@
   // --- Normalization ---
   function normalize(item: any) {
     const data = item?.data ?? item ?? {};
+    const slug = data.slug ?? item?.slug ?? item?.id;
     return {
       raw: data,
       title: `${data["Street Number"] ?? ""} ${data["Street Name"] ?? ""}, ${data.City ?? ""}`.trim() || "Untitled",
-      slug: data.slug ?? item?.slug ?? item?.id,
-      coverSrc: data.coverSrc ?? (data.cover ? `./assets/properties/${data.slug}/images/${data.cover}` : undefined),
+      slug,
+      coverSrc: data.coverSrc ?? (data.cover && slug ? `./assets/properties/${slug}/images/${data.cover}` : undefined),
       price: typeof data["List Price"] === "number" ? data["List Price"] : undefined,
       bedrooms: typeof data["Bedrooms Total"] === "number" ? data["Bedrooms Total"] : undefined,
       type: data["Card Format"],
@@ -66,11 +67,12 @@
   <div class="filter-grid">
     <!-- Row 1 -->
     <div class="filter-block price-block">
-      <label>Price</label>
+      <label for="price-range">Price</label>
       <RangeSlider
         bind:values={priceRange}
         min={minPrice}
         max={maxPrice}
+        id="price-range"
         range
         rangeFloat
         rangeFormatter={(v1, v2) => `$${v1.toLocaleString()} — $${v2.toLocaleString()}`}
@@ -79,7 +81,7 @@
     </div>
 
     <div class="filter-block">
-      <label>City</label>
+      <label for="city-select">City</label>
       <select bind:value={selectedCity}>
         <option value="">Any</option>
         {#each uniqueCities as city}
@@ -89,8 +91,8 @@
     </div>
 
     <div class="filter-block bedroom-block">
-      <label>Bedrooms</label>
-      <div class="bedroom-buttons">
+      <label for="bedroom-select">Bedrooms</label>
+      <div class="bedroom-buttons" id="bedroom-select">
         {#each [0,1,2,3,4,5,6] as num}
           <button
             type="button"
@@ -106,7 +108,7 @@
     <!-- Row 2 -->
     <div class="filter-block empty-block"></div>
     <div class="filter-block">
-      <label>Property Type</label>
+      <label for="type-select">Property Type</label>
       <select bind:value={selectedType}>
         <option value="">Any</option>
         {#each uniqueTypes as type}
@@ -150,10 +152,10 @@
 
 <style>
 .filter-box {
-  background: #ffffff;
+  background: var(--foreground-body);
   border-radius: 12px;
   padding: 0.75rem 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px var(--text-main);
   margin-bottom: 2rem;
 }
 
@@ -173,7 +175,8 @@
 select {
   width: 100%;
   padding: 0.35rem 0.5rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--text-main);
+  background: #fff;
   border-radius: 6px;
 }
 
@@ -185,17 +188,16 @@ select {
 
 .bedroom-buttons button {
   padding: 0.25rem 0.5rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--text-main);
   border-radius: 6px;
-  background: white;
+  background: #fff;
   cursor: pointer;
   font-size: 0.85rem;
 }
 
 .bedroom-buttons button.active {
-  background: #2563eb;
-  color: white;
-  border-color: #2563eb;
+  background: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .sort-block {
@@ -207,7 +209,7 @@ select {
 .sort-block button {
   align-items: flex-end; /* aligns to bottom */
   padding: 0.4rem 0.75rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--text-main);
   border-radius: 6px;
   background: white;
   cursor: pointer;
@@ -266,7 +268,7 @@ img {
 .price {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #2563eb;
+  color: var(--text-main);
 }
 
 .details {
