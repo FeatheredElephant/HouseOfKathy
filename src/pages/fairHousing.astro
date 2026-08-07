@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const title = "Fair Housing";
 const description = "HOUSE OF KATHY IS COMMITTED TO FAIR HOUSING.";
-const permalink = `${Astro.site.href}fairHousing`;
+const permalink = `${Astro.site?.href}fairHousing`;
 ---
 
 <BaseLayout
@@ -12,20 +12,170 @@ const permalink = `${Astro.site.href}fairHousing`;
   permalink={permalink}
   current="fairHousing"
 >
-  <div class="fair-housing-wrapper">
-    <a
-      href="/assets/legal/nys-housing-and-anti-discrimination-notice_02.2025.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="pdf-preview-link"
-    >
-      <img
-        src="/assets/legal/nys-housing-and-anti-discrimination-notice_02.2025.jpg"
-        alt="New York State Housing and Anti-Discrimination Notice. Click for PDF."
-        class="pdf-preview"
-      />
-      <span class="pdf-caption">View Fair Housing Notice (Printable PDF)</span>
-    </a>
+  <div class="container">
+    <div class="fair-housing-wrapper">
+      <a
+        href="/assets/legal/nys-housing-and-anti-discrimination-notice_02.2025.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="pdf-preview-link"
+      >
+        <img
+          src="/assets/legal/nys-housing-and-anti-discrimination-notice_02.2025.jpg"
+          alt="New York State Housing and Anti-Discrimination Notice. Click for PDF."
+          class="pdf-preview"
+        />
+        <span class="pdf-caption">View Fair Housing Notice (Printable PDF)</span
+        >
+      </a>
+    </div>
+    <div class="SOP">
+      <h1>Standard Operating Procedure For Buyers of Real Estate</h1>
+
+      <p>
+        At <strong>House of Kathy</strong>, one of our four core values is
+        "Ethics." In the interest of transparency, we have standardized our
+        operating procedures for working with real estate clients.
+      </p>
+
+      <h2>IDENTIFICATION:</h2>
+
+      <p>
+        <strong>House of Kathy</strong> does not have a company policy requiring that
+        its Sales Agents, Associate Brokers, or any member of staff obtain identification
+        or proof of U.S. citizenship from Buyers or Sellers prior to showing property
+        or entering into an agreement to list property.
+      </p>
+
+      <h2>PREQUALIFICATION:</h2>
+
+      <p>
+        <strong>House of Kathy</strong> does not have a company policy requiring that
+        its Sales Agents or Associate Brokers obtain a letter of pre-qualification/pre-approval
+        for a mortgage or home loan or proof of funds prior to showing a property
+        available for sale. However, it is advisable that prospective purchasers of
+        real estate contact a lender prior to enlisting the services of a licensed
+        real estate agent so that they are in the strongest position to present an
+        offer acceptable to a Seller should they identify a property for which they
+        would like to present an offer. It should be noted that sellers of real property
+        may require a mortgage pre-qualification.
+      </p>
+
+      <h2>EXCLUSIVE BUYER CONTRACTS:</h2>
+
+      <p>
+        <strong>House of Kathy</strong> does not require that a prospective Buyer
+        of Real Estate enter into an Exclusive Right to Represent Buyer contract prior
+        to showing a property available for sale. As independent contractors, Sales
+        Agents and Associate Brokers may explain the benefits of working under such
+        an agreement and, as such, we provide them with a contract should they choose
+        to present it to their customers for their consideration.
+      </p>
+
+      <h2>NY STATE REQUIRED DISCLOSURES:</h2>
+
+      <p>
+        New York State Law requires real estate licensees who are acting as
+        agents of buyers or sellers of property to advise the potential buyers
+        or sellers with whom they work of the nature of their agency
+        relationship and the rights and obligations it creates. As such, it is
+        also the policy of <strong>House of Kathy</strong> that all licensees present
+        all Buyers, Sellers, Landlords, and Tenants with the <strong
+          >NEW YORK STATE DISCLOSURE FORM</strong
+        >, furnished by the Department of State, <strong
+          >FOR BUYER AND SELLER</strong
+        > and/or <strong>LANDLORD AND TENANT</strong> upon first substantive contact.
+      </p>
+
+      <p>
+        Pursuant to New York State Law, all licensees associated with <strong
+          >House of Kathy</strong
+        > are required to provide to a prospective purchaser, tenant, seller, or landlord
+        upon first substantive contact a disclosure notice furnished by the Department
+        of State, containing substantive provisions of the New York State Human Rights
+        Law. This notice may be provided by email, text, electronic messaging system,
+        facsimile, or hard copy. An electronic communication containing a link to
+        the required disclosure notice shall be permissible, provided the communication
+        also contains text informing the prospective purchaser, tenant, seller, or
+        landlord that the link contains information regarding the New York State Human
+        Rights Law. Oral disclosure does not satisfy the requirements of either the
+        Law or of <strong>House of Kathy</strong>.
+      </p>
+
+      <hr />
+
+      <h1>Standard Operating Procedure For Sellers of Real Estate</h1>
+
+      <p>
+        At <strong>House of Kathy</strong>, one of our four core values is
+        "Ethics." In the interest of transparency, we have standardized our
+        operating procedures for working with real estate clients.
+      </p>
+
+      <h2>IDENTIFICATION:</h2>
+
+      <p>
+        <strong>House of Kathy</strong> does not have a company policy requiring that
+        its Sales Agents, Associate Brokers, or any member of staff obtain identification
+        or proof of U.S. citizenship from Buyers or Sellers prior to showing property
+        or entering into an agreement to list property.
+      </p>
+
+      <h2>PREQUALIFICATION:</h2>
+
+      <p>
+        <strong>House of Kathy</strong> does not have a company policy requiring that
+        its Sales Agents or Associate Brokers obtain a letter of prequalification/pre-approval
+        for a mortgage or home loan or proof of funds prior to showing a property
+        available for sale. However, it is advisable that prospective purchasers of
+        real estate contact a lender prior to enlisting the services of a licensed
+        real estate agent so that they are in the strongest position to present an
+        offer acceptable to a Seller should they identify a property for which they
+        would like to present an offer. It should be noted that sellers of real property
+        may require a mortgage prequalification.
+      </p>
+
+      <h2>EXCLUSIVE BUYER CONTRACTS:</h2>
+
+      <p>
+        <strong>House of Kathy</strong> does not require that a prospective Buyer
+        of Real Estate enter into an Exclusive Right to Represent Buyer contract prior
+        to showing a property available for sale. As independent contractors, Sales
+        Agents and Associate Brokers may explain the benefits of working under such
+        an agreement and, as such, we provide them with a contract should they choose
+        to present it to their customers for their consideration.
+      </p>
+
+      <h2>NY STATE REQUIRED DISCLOSURES:</h2>
+
+      <p>
+        New York State Law requires real estate licensees who are acting as
+        agents of buyers or sellers of property to advise the potential buyers
+        or sellers with whom they work of the nature of their agency
+        relationship and the rights and obligations it creates. As such, it is
+        also the policy of <strong>House of Kathy</strong> that all licensees present
+        all Buyers, Sellers, Landlords, and Tenants with the <strong
+          >NEW YORK STATE DISCLOSURE FORM</strong
+        >, furnished by the Department of State, <strong
+          >FOR BUYER AND SELLER</strong
+        > and/or <strong>LANDLORD AND TENANT</strong> upon first substantive contact.
+      </p>
+
+      <p>
+        Pursuant to New York State Law, all licensees associated with <strong
+          >House of Kathy</strong
+        > are required to provide to a prospective purchaser, tenant, seller, or landlord
+        upon first substantive contact a disclosure notice furnished by the Department
+        of State, containing substantive provisions of the New York State Human Rights
+        Law. This notice may be provided by email, text, electronic messaging system,
+        facsimile, or hard copy. An electronic communication containing a link to
+        the required disclosure notice shall be permissible, provided the communication
+        also contains text informing the prospective purchaser, tenant, seller, or
+        landlord that the link contains information regarding the New York State Human
+        Rights Law. Oral disclosure does not satisfy the requirements of either the
+        Law or of <strong>House of Kathy</strong>.
+      </p>
+    </div>
   </div>
 </BaseLayout>
 

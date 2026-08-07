@@ -1,26 +1,23 @@
 <style>
-  #logo {
-    height: 150px;
-    width: auto;
-    object-fit: contain;
-    background-color: #fff;
+  a {
+    display: block;
+  }
+
+  img {
+    height: 120px;
+    background: #fff;
     border-radius: 5%;
   }
 
   @media (max-width: 786px) {
-    #logo-link {
+    a {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      margin: 0 auto;
-      height: 150px;
-      width: auto;
-      border-radius: 5%;
-      z-index: 500;
     }
   }
 </style>
 
-<a href="/" id="logo-link">
-  <img id="logo" alt="House of Kathy" src="/assets/Kathy_Logo.png" />
+<a href="/">
+  <img alt="House of Kathy" src="/assets/Kathy_Logo.png" />
 </a>
