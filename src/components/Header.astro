@@ -17,7 +17,6 @@ const { current = "" } = Astro.props;
     justify-content: space-between;
     margin: 0 auto;
     height: 150px;
-    max-width: 1400px;
     padding: 2em;
     z-index: 100;
     background: var(--foreground-body);
@@ -26,15 +25,22 @@ const { current = "" } = Astro.props;
   #hamburger-container {
     display: none;
     align-items: center;
-    position: fixed;
-    top: 2em;
-    right: 2em;
     z-index: 50;
   }
 
   #nav-container {
     display: flex;
     align-items: center;
+    height: 100%;
+  }
+
+  .header-inner {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     height: 100%;
   }
 
@@ -54,12 +60,14 @@ const { current = "" } = Astro.props;
 </style>
 
 <header>
-  <Logo />
-  <div id="nav-container">
-    <Nav current={current} />
-  </div>
-  <div id="hamburger-container">
-    <Hamburger />
+  <div class="header-inner">
+    <Logo />
+    <div id="nav-container">
+      <Nav current={current} />
+    </div>
+    <div id="hamburger-container">
+      <Hamburger />
+    </div>
   </div>
 </header>
 <div class="header-offset"></div>
