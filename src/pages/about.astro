@@ -15,12 +15,13 @@ const permalink = `${Astro.site?.href}about`;
   <div class="container">
     <h1>Kathy Shumway</h1>
 
+    
     <figure class="about-image">
       <img
-        src="/assets/Kathy_Profile_Picture.jpg"
+        src="/assets/Kathy_Photo_Smile.jpg"
         alt="Photo of Kathy Shumway"
       />
-      <figcaption>Top-Rated Ulster County Real Estate Expert</figcaption>
+      <figcaption><a href="https://alexhealyphoto.com/" target="_blank">Photo by Alex Healy</a></figcaption>
     </figure>
 
     <p>
@@ -80,18 +81,31 @@ const permalink = `${Astro.site?.href}about`;
   </div>
 
   <style>
+
+    .container {
+      padding: 2em;
+      max-width: 95%;
+      text-align: left;
+    }
     .about-image {
       float: right;
       margin: 0 0 2em 2em;
       max-width: 320px;
-      min-width:;
+      overflow: hidden;
       text-align: center;
+      border-radius: 100%;
     }
 
     .about-image img {
-      border-radius: 50%;
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.25);
+      transform-origin: center;
+      border-radius: 100%;
       background: transparent; /* Removes gradient rings issue */
-      padding: 8px;
+      padding: 2px;
 
       /* Soft, theme-friendly halo */
       box-shadow:
@@ -107,7 +121,16 @@ const permalink = `${Astro.site?.href}about`;
       font-style: italic;
     }
 
+    .about-image figcaption a {
+      text-decoration: none;
+      color: inherit;
+    }
+
     @media (max-width: 1020px) {
+      h1 {
+        text-align: center;
+      }
+
       .about-image {
         float: none;
         margin: 1.5em auto 2em;

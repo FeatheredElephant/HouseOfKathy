@@ -12,7 +12,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-body: #202122;
+    --background-body: linear-gradient(
+      to bottom,
+        #121212 0%,
+        #171514 55%,
+        #211d1a 100%
+      );
     --foreground-body: #323335;
     --text-main: #fff;
     --text-secondary: #ccc;
@@ -42,7 +47,7 @@ body {
   font-family: var(--font-family-serif);
   font-size: 16px;
   line-height: 1.6;
-  background-color: var(--background-body);
+  background: var(--background-body);
   color: var(--text-main);
   overflow-x: hidden; /* prevent horizontal scrolling */
 }
