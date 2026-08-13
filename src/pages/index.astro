@@ -13,7 +13,14 @@ if (!permalink) {
 <BaseLayout title={title} description={description} permalink={permalink}>
   <div class="home-container">
     <div class="home-copy">
-      <h1>Turning Keys Into Stories.</h1>
+      <h1>
+        Turning Keys Into
+        <span class="warm">
+          Stories
+          <span class="glow" aria-hidden="true"></span>
+        </span>
+        .
+      </h1>
       <p>
         With 100+ homes sold and a 5-star Zillow rating, Kathy guides you to the
         right home and makes every move unforgettable.
@@ -25,29 +32,9 @@ if (!permalink) {
       >
         View our Listings
       </a>
-      <a
-        href="./contact"
-        rel="noopener noreferrer"
-        class="click-button"
-      >
-        Schedule a Free Consultation
-      </a>
     </div>
 
     <div class="hero-image-container">
-      <picture>
-        <source
-          srcset="/assets/home-illustration.webp"
-          media="(min-width: 600px)"
-        />
-        <img
-          class="hero-image"
-          alt="Illustration of person reading a book"
-          src="/assets/home-illustration-small.webp"
-          width="550"
-          height="466"
-        />
-      </picture>
     </div>
   </div>
 </BaseLayout>
@@ -68,8 +55,6 @@ if (!permalink) {
 
   .home-container {
     align-items: center;
-    background: var(--background-body);
-    backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
     display: flex;
     flex: 1;
@@ -136,6 +121,34 @@ if (!permalink) {
   .click-button:hover {
     background-color: #3f6c77; /* slightly darker on hover */
     transform: scale(1.02);
+  }
+
+  .warm {
+    position: relative;
+    display: inline-block;
+    color: var(--text-secondary);
+    overflow: visible;
+    isolation: isolate;
+  }
+
+  .glow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 180%;
+    height: 300%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(238, 174, 86, 0.3) 0%,
+      rgba(238, 174, 86, 0.2) 10%,
+      rgba(238, 174, 86, 0.1) 42%,
+      rgba(238, 174, 86, 0) 72%
+    );
+    filter: blur(18px);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.95;
   }
 
   @media (max-width: 768px) {

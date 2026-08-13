@@ -1,32 +1,17 @@
 :root {
-  --background-body: #fff;
-  --foreground-body: #f9d9ce;
-  --text-main: #332b29;
-  --text-secondary: #9fdddc;
-  --primary-color: #eeae56;
-  --font-family-serif: Merriweather, serif;
-  --font-family-sans: "Fira Sans", sans-serif;
-  --mobile-size-limit: 768px;
-  --max-width: 1400px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-body: linear-gradient(
-      to bottom,
-        #121212 0%,
-        #171514 55%,
-        #211d1a 100%
-      );
-    --foreground-body: #323335;
+    --foreground-body: rgba(17,20,40, 0.95);
     --text-main: #fff;
-    --text-secondary: #ccc;
+    --text-secondary: #eeae56;
     --primary-color: #548e9b;
+    --font-family-serif: Merriweather, serif;
+    --font-family-sans: "Fira Sans", sans-serif;
+   --mobile-size-limit: 768px;
+   --max-width: 1400px;
   }
-}
 
 html {
   overflow-y: scroll;
+  margin: 0;
 }
 
 @supports (scrollbar-gutter: stable) {
