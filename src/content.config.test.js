@@ -47,7 +47,7 @@ describe("content.config", () => {
 
     if (properties.length === 0) {
       console.log(
-        "\nNo properties loaded. Checking which files exist in the folder..."
+        "\nNo properties loaded. Checking which files exist in the folder...",
       );
 
       // Absolute path to your properties folder
@@ -75,7 +75,7 @@ describe("content.config", () => {
       }
 
       console.log(
-        "\nMake sure your folders and files match the glob pattern '**/index.yaml' and your YAML matches the schema."
+        "\nMake sure your folders and files match the glob pattern '**/index.yaml' and your YAML matches the schema.",
       );
     }
 
