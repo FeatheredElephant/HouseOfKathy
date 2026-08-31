@@ -6,7 +6,7 @@ const { images } = Astro.props;
     <div class="gallery-scroll">
       {images.map((src, i) => (
         <div class="gallery-item" data-index={i} data-src={src}>
-          <img src={src} alt={`Property image ${i + 1}`} loading="lazy" />
+          <img src={src} alt={`Property image ${i + 1}`} loading="lazy" draggable="false" />
         </div>
       ))}
     </div>
@@ -19,11 +19,15 @@ const { images } = Astro.props;
     </div>
 
     <script type="module">
+      const galleryScroll = document.querySelector('.gallery-scroll');
       const images = [...document.querySelectorAll('.gallery-item')].map(
         item => item.dataset.src
       );
 
       let currentIndex = 0;
+      let isDragging = false;
+      let dragStartX = 0;
+      let dragScrollLeft = 0;
 
       const overlay = document.getElementById('overlay');
       const overlayImg = document.getElementById('overlayImg');
@@ -31,8 +35,41 @@ const { images } = Astro.props;
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
 
+      galleryScroll.addEventListener('pointerdown', (event) => {
+        isDragging = false;
+        dragStartX = event.clientX;
+        dragScrollLeft = galleryScroll.scrollLeft;
+        galleryScroll.setPointerCapture(event.pointerId);
+      });
+
+      galleryScroll.addEventListener('pointermove', (event) => {
+        const dragDistance = Math.abs(event.clientX - dragStartX);
+        if (dragDistance > 5) {
+          isDragging = true;
+          galleryScroll.classList.add('dragging');
+        }
+
+        if (event.pressure > 0) {
+          galleryScroll.scrollLeft = dragScrollLeft - (event.clientX - dragStartX);
+        }
+      });
+
+      const stopDragging = () => {
+        isDragging = false;
+        galleryScroll.classList.remove('dragging');
+      };
+
+      galleryScroll.addEventListener('pointerup', stopDragging);
+      galleryScroll.addEventListener('pointerleave', stopDragging);
+      galleryScroll.addEventListener('pointercancel', stopDragging);
+
       document.querySelectorAll('.gallery-item').forEach(item => {
         item.addEventListener('click', () => {
+          if (isDragging) {
+            isDragging = false;
+            return;
+          }
+
           currentIndex = parseInt(item.dataset.index);
           overlayImg.src = images[currentIndex];
           overlay.classList.remove('hidden');
@@ -75,20 +112,31 @@ const { images } = Astro.props;
   scroll-behavior: smooth;
   border: 10px;
   border-color: #000;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.28) rgba(20, 20, 20, 0.9);
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.gallery-scroll.dragging {
+  cursor: grabbing;
 }
 
 .gallery-scroll::-webkit-scrollbar {
-  height: 6px;
+  height: 8px;
 }
 .gallery-scroll::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(20, 20, 20, 0.9);
+  border-radius: 999px;
 }
 .gallery-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  border: 2px solid rgba(20, 20, 20, 0.9);
 }
 .gallery-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.42);
 }
 
 /* --- 3. Keep aspect ratio thumbnails --- */

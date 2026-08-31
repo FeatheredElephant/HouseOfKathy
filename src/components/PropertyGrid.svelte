@@ -256,9 +256,10 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    background: #fff;
+    background: var(--foreground-body);
     text-decoration: none;
-    color: black;
+    color: var(--text-secondary);
+    text-align: center;
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease;
@@ -287,23 +288,30 @@
   }
 
   .info {
-    padding: 0.75rem 1rem;
+    padding: 1rem;
+  }
+
+  .info h3,
+  .price,
+  .details {
+    margin: 0;
   }
 
   .info h3 {
     font-size: 1rem;
     font-weight: 600;
+    margin-bottom: 0.35rem;
   }
 
   .price {
     font-size: 0.95rem;
     font-weight: 700;
-    color: black;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
   }
 
   .details {
     font-size: 0.85rem;
-    color: #374151;
-    margin-top: 0.25rem;
+    color: var(--primary-color);
   }
 </style>

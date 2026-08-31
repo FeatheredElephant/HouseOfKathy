@@ -67,9 +67,11 @@ const images: string[] = existsSync(imagesDirectory)
     </article>
 
     {
-      images.length > 0 ?
+      images.length > 0 ? (
         <Gallery images={images} client:load />
-      : <p>No images found for this property.</p>
+      ) : (
+        <p>No images found for this property.</p>
+      )
     }
   </div>
 </BaseLayout>
