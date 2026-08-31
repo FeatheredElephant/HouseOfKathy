@@ -1,5 +1,5 @@
 ---
-import { NavLink } from "../data/nav.js";
+import { NavItem } from "../data/nav.js";
 import { NAV_LINKS } from "../data/nav.js";
 
 interface Props {
@@ -7,6 +7,20 @@ interface Props {
 }
 const { current = "" } = Astro.props;
 ---
+
+<script>
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const clickedInsideDropdown = target.closest(".dropdown");
+    if (!clickedInsideDropdown) {
+      document.querySelectorAll(".dropdown[open]").forEach((dropdown) => {
+        dropdown.removeAttribute("open");
+      });
+    }
+  });
+</script>
 
 <style>
   nav {
@@ -17,10 +31,11 @@ const { current = "" } = Astro.props;
     font-weight: 700;
     justify-content: flex-end;
     text-transform: uppercase;
+    color: var(--text-main);
   }
 
   a {
-    color: inherit;
+    color: var(--text-main);
     text-decoration: none;
     padding: 10px 5px;
     display: block;
@@ -30,8 +45,70 @@ const { current = "" } = Astro.props;
     text-align: center;
   }
 
+  a:hover,
+  .dropdown-trigger:hover {
+    color: var(--text-secondary);
+  }
+
   a:not(.selected) {
-    opacity: 0.7;
+    opacity: 0.8;
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-trigger {
+    cursor: pointer;
+    color: inherit;
+    display: block;
+    position: relative;
+    padding: 10px 5px;
+    margin-left: 20px;
+    min-width: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    list-style: none;
+  }
+
+  .dropdown-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: -25px;
+    background: var(--foreground-body);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.25),
+      0 12px 24px rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 8px 0;
+    min-width: 180px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    text-align: center;
+  }
+
+  .dropdown-menu a {
+    margin: 0;
+    width: 100%;
+    padding: 10px 16px;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .dropdown-menu a + a {
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      )
+      1;
   }
 
   a::before {
@@ -84,10 +161,23 @@ const { current = "" } = Astro.props;
 
 <nav>
   {
-    NAV_LINKS.map((link: NavLink) => (
-      <a href={link.href} class={current === link.key ? "selected" : ""}>
-        {link.label}
-      </a>
+    NAV_LINKS.map((item: NavItem) => (
+      <div class="nav-item">
+        {"href" in item ? (
+          <a href={item.href} class={current === item.key ? "selected" : ""}>
+            {item.label}
+          </a>
+        ) : (
+          <details class="dropdown">
+            <summary class="dropdown-trigger">{item.label}</summary>
+            <div class="dropdown-menu">
+              {item.links.map((child) => (
+                <a href={child.href}>{child.label}</a>
+              ))}
+            </div>
+          </details>
+        )}
+      </div>
     ))
   }
 </nav>

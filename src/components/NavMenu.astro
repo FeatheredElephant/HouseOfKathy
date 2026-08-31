@@ -1,5 +1,5 @@
 ---
-import { NavLink } from "../data/nav.js";
+import { NavItem } from "../data/nav.js";
 import { NAV_LINKS } from "../data/nav.js";
 
 interface Props {
@@ -10,14 +10,38 @@ const { current = null } = Astro.props;
 
 <nav>
   {
-    NAV_LINKS.map((link: NavLink) => (
-      <a
-        href={link.href}
-        class={current != null && current === link.key ? "selected" : ""}
-      >
-        {link.label}
-      </a>
-    ))
+    NAV_LINKS.map((item: NavItem) =>
+      "href" in item ? (
+        <a
+          href={item.href}
+          class={current != null && current === item.key ? "selected" : ""}
+        >
+          {item.label}
+        </a>
+      ) : (
+        <details
+          class={
+            current != null && item.links.some((link) => link.key === current)
+              ? "dropdown selected"
+              : "dropdown"
+          }
+        >
+          <summary class="dropdown-trigger">{item.label}</summary>
+          <div class="dropdown-menu">
+            {item.links.map((link) => (
+              <a
+                href={link.href}
+                class={
+                  current != null && current === link.key ? "selected" : ""
+                }
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </details>
+      ),
+    )
   }
 </nav>
 
@@ -36,7 +60,15 @@ const { current = null } = Astro.props;
     box-sizing: border-box;
   }
 
+  .dropdown,
+  .dropdown-trigger,
+  .dropdown-menu,
   nav a {
+    width: min(100%, 30rem);
+  }
+
+  nav a,
+  .dropdown-trigger {
     color: #fff;
     text-decoration: none;
     font-size: clamp(1.25rem, 4vw, 2.5rem);
@@ -49,22 +81,56 @@ const { current = null } = Astro.props;
     will-change: transform, background-color;
     background: transparent;
     box-shadow: none;
+    display: block;
+    text-align: center;
+    box-sizing: border-box;
   }
 
-  nav a:hover {
+  nav a:hover,
+  .dropdown-trigger:hover {
     transform: translateY(-4px) scale(1.02);
     background: rgba(255, 255, 255, 0.06);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
   }
 
-  nav a:active {
+  nav a:active,
+  .dropdown-trigger:active {
     transform: translateY(0) scale(0.995);
     background: rgba(255, 255, 255, 0.1);
   }
 
-  nav a.selected {
+  nav a.selected,
+  .dropdown.selected .dropdown-trigger,
+  .dropdown.selected .dropdown-menu a.selected {
     background: rgba(255, 255, 255, 0.12);
     box-shadow: 0 8px 26px rgba(0, 0, 0, 0.6);
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-trigger {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .dropdown-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    width: min(100%, 30rem);
+  }
+
+  .dropdown-menu a {
+    font-size: clamp(0.95rem, 3vw, 1.5rem);
+    width: 100%;
+    padding: 0.65rem 1rem;
   }
 
   @media (min-width: 900px) {
@@ -72,9 +138,24 @@ const { current = null } = Astro.props;
       align-items: flex-start;
       padding-left: 4rem;
     }
-    nav a {
+
+    nav a,
+    .dropdown-trigger {
+      width: auto;
+      min-width: 12rem;
       font-size: clamp(1rem, 1.8vw, 1.5rem);
       padding: 0.5rem 1rem;
+      text-align: left;
+    }
+
+    .dropdown,
+    .dropdown-menu {
+      width: auto;
+    }
+
+    .dropdown-menu {
+      align-items: flex-start;
+      min-width: 15rem;
     }
   }
 </style>
