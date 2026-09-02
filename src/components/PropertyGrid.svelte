@@ -15,7 +15,7 @@
       coverSrc:
         data.coverSrc ??
         (data.cover && slug
-          ? `./assets/properties/${slug}/images/${data.cover}`
+          ? `/assets/properties/${slug}/images/${data.cover}`
           : undefined),
       price:
         typeof data["List Price"] === "number" ? data["List Price"] : undefined,
