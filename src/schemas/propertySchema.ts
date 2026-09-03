@@ -45,5 +45,5 @@ export const propertySchema = z
   })
   .transform((data) => ({
     ...data,
-    coverSrc: `./assets/properties/${data.slug}/images/${data.cover}`,
+    coverSrc: `/assets/properties/${data.slug}/images/${data.cover}`,
   }));
