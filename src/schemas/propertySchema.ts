@@ -9,17 +9,19 @@ const numericOrUndefined = () =>
   z.preprocess((val) => {
     if (val === undefined || val === "") return undefined;
     const num = Number(val);
-    return isNaN(num) ? undefined : num;
-  }, z.number().optional());
+    return Number(val);
+  }, z.number().finite().optional());
+
+const requiredString = z.string().trim().min(1, { message: "Required" });
 
 export const propertySchema = z
   .object({
     "List Number": numericOrUndefined(),
     "Agency Name": emptyToUndefined(z.string()),
     "Agency Phone": emptyToUndefined(z.string()),
-    "Listing Agent": z.string(),
+    "Listing Agent": requiredString,
     "Card Format": z
-      .enum(["Commercial Sale", "Residential", "Residential Income", "Land"])
+      .enum(["Commercial Sale", "Residential", "Residential Lease", "Residential Income", "Land"])
       .optional(),
     "End Date": z.preprocess(
       (val) => (val === "" ? undefined : val),
@@ -31,7 +33,7 @@ export const propertySchema = z
     ),
     "List Price": numericOrUndefined(),
     "Street Number": numericOrUndefined(),
-    "Street Name": z.string(),
+    "Street Name": requiredString,
     City: emptyToUndefined(z.string()),
     State: z.string(),
     County: z.string(),
@@ -40,8 +42,8 @@ export const propertySchema = z
     Longitude: numericOrUndefined(),
     "Year Built": numericOrUndefined(),
     "Bedrooms Total": numericOrUndefined(),
-    slug: z.string(),
-    cover: z.string(),
+    slug: requiredString,
+    cover: requiredString,
   })
   .transform((data) => ({
     ...data,
