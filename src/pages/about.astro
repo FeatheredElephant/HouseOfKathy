@@ -12,17 +12,17 @@ const permalink = `${Astro.site?.href}about`;
   permalink={permalink}
   current="about"
 >
-  <div class="container">
+  <div class="container content">
     <h1>Kathy Shumway</h1>
 
     <figure class="about-image">
-      <dv class="img-container">
+      <div class="image-container">
         <img src="/assets/Kathy_Photo_Smile.jpg" alt="Photo of Kathy Shumway" />
-      </dv>
+      </div>
       <figcaption>
-        <a href="https://alexhealyphoto.com/" target="_blank"
-          >Photo by Alex Healy</a
-        >
+        <a href="https://alexhealyphoto.com/" target="_blank" rel="noreferrer">
+          Photo by Alex Healy
+        </a>
       </figcaption>
     </figure>
 
@@ -87,32 +87,42 @@ const permalink = `${Astro.site?.href}about`;
       max-width: 95%;
       text-align: left;
     }
+
+    .content {
+      padding-top: 2rem;
+      padding-bottom: 3rem;
+    }
+
     .about-image {
-      height: 400px;
       float: right;
-      margin: 0 0 2em 2em;
+      width: min(280px, 38vw);
+      margin: 0 0 1.5em 2em;
       text-align: center;
     }
 
     .image-container {
-      border-radius: 100%;
+      width: 100%;
+      border-radius: 50%;
       overflow: hidden;
-      height: 200px;
-      width: 200px;
+      aspect-ratio: 1;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
     }
 
     .about-image img {
-      width: 250px;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center;
-      padding: 2px;
+      display: block;
     }
 
     .about-image figcaption {
-      margin-top: 0.6em;
-      font-size: 0.9rem;
+      margin-top: 0.7em;
+      font-size: 0.85rem;
       color: var(--text-secondary);
       font-style: italic;
+      line-height: 1.5;
     }
 
     .about-image figcaption a {
@@ -127,6 +137,7 @@ const permalink = `${Astro.site?.href}about`;
 
       .about-image {
         float: none;
+        width: min(280px, 80vw);
         margin: 1.5em auto 2em;
         display: flex;
         flex-direction: column;

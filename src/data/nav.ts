@@ -25,9 +25,19 @@ export const NAV_LINKS: NavItem[] = [
         key: "fairhousing"
       },
       {
-        href: "/policies/sop",
-        label: "Standard Operating Procedure",
-        key: "sop"
+        href: "/policies/sop-buyer",
+        label: "Buyer Operating Procedure",
+        key: "sop-buyer"
+      },
+      {
+        href: "/policies/sop-seller",
+        label: "Seller Operating Procedure",
+        key: "sop-seller"
+      },
+      {
+        href: "/policies/compensation",
+        label: "Compensation Policy",
+        key: "compensation"
       }
     ] },
   { href: "/contact", label: "Contact", key: "contact" },

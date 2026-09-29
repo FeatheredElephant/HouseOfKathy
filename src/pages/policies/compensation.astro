@@ -1,0 +1,295 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Fair Housing";
+const description = "HOUSE OF KATHY IS COMMITTED TO FAIR HOUSING.";
+const permalink = `${Astro.site?.href}fairHousing`;
+const salesListings = [
+  {
+    address: "160 Academy Street",
+    city: "Poughkeepsie",
+    state: "NY",
+    zip: "12601",
+    compensation: "2.0%",
+  },
+  {
+    address: "49 Grill Street",
+    city: "Kingston",
+    state: "NY",
+    zip: "12401",
+    compensation: "2.0%",
+  },
+  {
+    address: "109 Goldrick Landing",
+    city: "Kingston",
+    state: "NY",
+    zip: "12401",
+    compensation: "2.0%",
+  },
+  {
+    address: "32 Kalina",
+    city: "Saugerties",
+    state: "NY",
+    zip: "12477",
+    compensation: "2.0%",
+  },
+  {
+    address: "1 Sawmill Road",
+    city: "Saugerties",
+    state: "NY",
+    zip: "12477",
+    compensation: "2.0%",
+  },
+  {
+    address: "37 Tiger Maple",
+    city: "Saugerties",
+    state: "NY",
+    zip: "12477",
+    compensation: "2.0%",
+  },
+  {
+    address: "660 Rudolph Weur Jr RD",
+    city: "Earlton",
+    state: "NY",
+    zip: "12477",
+    compensation: "1.0%",
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  permalink={permalink}
+  current="fairHousing"
+>
+  <!-- Header -->
+  <header class="mb-10 text-center border-b pb-8 border-slate-200">
+    <h1
+      class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-3"
+    >
+      Cooperating Broker & Rental Referral Compensation
+    </h1>
+    <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+      Direct public disclosure of voluntary compensation offered by sellers and
+      landlords to licensed third-party brokers and agents across Dutchess,
+      Ulster, and Greene counties.
+    </p>
+  </header>
+
+  <!-- Legal & Regulatory Notice -->
+  <section
+    class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-lg mb-12 shadow-sm"
+  >
+    <h2
+      class="text-lg font-semibold text-amber-900 mb-3 uppercase tracking-wide"
+    >
+      Mandatory NYS Regulatory Disclosures & Terms
+    </h2>
+    <ul
+      class="space-y-2 text-sm text-amber-950 leading-relaxed list-disc list-inside"
+    >
+      <li>
+        <strong>Commissions are Negotiable:</strong> Real estate commissions, fees,
+        and offers of compensation are <em>not set by law</em> and are <em
+          >fully negotiable</em
+        > between sellers, buyers, landlords, tenants, and their respective brokers.
+      </li>
+      <li>
+        <strong>Written Buyer Agreements Required:</strong> All third-party buyer
+        agents must have a signed written representation agreement with their client
+        prior to touring any featured property.
+      </li>
+      <li>
+        <strong>Execution & Conditions:</strong> Offers of sales compensation listed
+        below are subject to the full execution of a binding purchase contract, successful
+        title closing, and the agent's active licensure in good standing in the State
+        of New York.
+      </li>
+      <li>
+        <strong>Rental Referral Terms:</strong> Referral payments apply upon execution
+        of a lease and payment of required initial funds. Real estate referral fees
+        may only be paid directly to licensed real estate brokers.
+      </li>
+    </ul>
+  </section>
+
+  <!-- Sales Compensation Table -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">
+      1. Sales Properties (Cooperating Buyer Broker Compensation)
+    </h2>
+    <p class="text-sm text-slate-600 mb-6">
+      Percentages represent offered buyer-broker compensation calculated on the
+      gross purchase price at closing.
+    </p>
+
+    <div class="overflow-x-auto shadow-sm border border-slate-200 rounded-lg">
+      <table class="w-full text-left border-collapse bg-white">
+        <thead>
+          <tr
+            class="bg-slate-100 text-slate-700 text-sm font-semibold border-b border-slate-200"
+          >
+            <th class="p-4">Street Address</th>
+            <th class="p-4">City</th>
+            <th class="p-4">State</th>
+            <th class="p-4">Zip Code</th>
+            <th class="p-4 text-right">Offered Compensation</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 text-sm">
+          {
+            salesListings.map((property) => (
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td class="p-4 font-medium text-slate-900">
+                  {property.address}
+                </td>
+                <td class="p-4 text-slate-700">{property.city}</td>
+                <td class="p-4 text-slate-700">{property.state}</td>
+                <td class="p-4 text-slate-700">{property.zip}</td>
+                <td class="p-4 text-right font-bold text-emerald-700">
+                  {property.compensation}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Rental Referral Section -->
+  <section
+    class="mb-12 bg-slate-50 border border-slate-200 rounded-xl p-6 sm:p-8"
+  >
+    <div
+      class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4"
+    >
+      <h2 class="text-2xl font-bold text-slate-900">2. Rental Referrals</h2>
+      <span
+        class="inline-block bg-emerald-100 text-emerald-800 font-bold px-4 py-1.5 rounded-full text-sm w-max"
+      >
+        $300 Flat Referral Fee
+      </span>
+    </div>
+
+    <p class="text-slate-700 mb-4">
+      Earn a flat <strong>$300 referral payment</strong> for referring prospective
+      tenants who complete a lease agreement for eligible "House of Kathy" rental
+      properties.
+    </p>
+
+    <h3
+      class="font-semibold text-slate-900 text-sm mb-2 uppercase tracking-wide"
+    >
+      Eligibility & Conditions:
+    </h3>
+    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1.5">
+      <li>
+        Referred applicant must submit an application, pass screening, sign a
+        formal lease, and pay all required upfront funds.
+      </li>
+      <li>
+        Referrals must be registered prior to or at the time of initial inquiry.
+      </li>
+    </ul>
+  </section>
+
+  <!-- Agent Submission Instructions -->
+  <section class="border-t border-slate-200 pt-8">
+    <h2 class="text-xl font-bold text-slate-900 mb-4">
+      Agent & Referral Submission Instructions
+    </h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white p-5 border border-slate-200 rounded-lg shadow-sm">
+        <h3 class="font-semibold text-slate-900 mb-2">Rental Referrals</h3>
+        <p class="text-sm text-slate-600">
+          Email the prospective tenant’s full name, contact information, and
+          your brokerage details prior to the tenant’s application submission.
+        </p>
+      </div>
+      <div class="bg-white p-5 border border-slate-200 rounded-lg shadow-sm">
+        <h3 class="font-semibold text-slate-900 mb-2">
+          Sales Showings & Offers
+        </h3>
+        <p class="text-sm text-slate-600">
+          Contact our team directly to schedule showings. Cooperating agents
+          must provide the required <strong
+            >NYS Disclosure Form for Buyer and Seller (DOS-1736)</strong
+          > at first substantive contact.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Center the preview area and make it full-width */
+  .fair-housing-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 2em 1em;
+    box-sizing: border-box;
+  }
+
+  /* Core preview styles */
+  .pdf-preview-link {
+    display: block;
+    width: 80%;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+    background: #fff;
+  }
+
+  .pdf-preview-link:hover {
+    transform: scale(1.01);
+  }
+
+  /* Image styling */
+  .pdf-preview {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Caption below image */
+  .pdf-caption {
+    display: block;
+    text-align: center;
+    font-weight: 600;
+    color: #004080;
+    padding: 0.75em 0;
+  }
+
+  /* 🖥️ Large desktops: reduce width slightly */
+  @media (min-width: 1600px) {
+    .pdf-preview-link {
+      width: 70%;
+    }
+  }
+
+  /* 📱 Tablets & phones: use nearly full width */
+  @media (max-width: 1024px) {
+    .pdf-preview-link {
+      width: 90%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pdf-preview-link {
+      width: 100%;
+      box-shadow: none;
+      border-radius: 0;
+    }
+
+    .pdf-caption {
+      font-size: 0.95rem;
+    }
+  }
+</style>
